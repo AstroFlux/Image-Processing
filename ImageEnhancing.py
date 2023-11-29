@@ -27,18 +27,14 @@ def place_file(file_path):
 	imageLabelInput.config(image=labelInputImage)
 	imageLabelInput.image = labelInputImage
 
-	invert_file(file_path, inputImageCV2, newwidth)
+	invert_file(inputImageCV2, newwidth)
 	threshold_file(inputImageCV2, newwidth)
 	log_transform_file(inputImageCV2, newwidth)
 	exp_transform_file(inputImageCV2, newwidth)
 
-def invert_file(file_path, inputImageCV2, newwidth):
-	# inverted_image = ImageChops.invert(inputImage)
+def invert_file(inputImageCV2, newwidth):
 	invertedImageCV2 = np.invert(inputImageCV2)
 	inverted_image = Image.fromarray(invertedImageCV2)
-	# inverted_file_name = os.path.splitext(os.path.basename(file_path))[0]
-	# inverted_file_path = os.path.abspath(os.getcwd()) + "/inverted images/" + inverted_file_name + ".jpg"
-	# inverted_image.save(inverted_file_path)
 	inverted_image = inverted_image.resize((newwidth, 200))
 	labelInvertedImage = ImageTk.PhotoImage(inverted_image)
 	imageLabelOutputInverted.config(image=labelInvertedImage)
@@ -66,7 +62,7 @@ def log_transform_file(inputImageCV2, newwidth):
 	imageLabelOutputLogarithmic.image = labelLogarithmicImage
 
 def exp_transform_file(inputImageCV2, newwidth):
-	expper = lambda t: 255 * ((t/255) ** 0.5)
+	expper = lambda t: 255 * ((t/255) ** 2)
 	vfunc = np.vectorize(expper)
 	exponentialImageCV2 = vfunc(inputImageCV2)
 	exponentialImage = Image.fromarray(exponentialImageCV2)
@@ -100,7 +96,7 @@ output_file_label_inverted.place(x=0, y=260)
 imageLabelOutputInverted = tk.Label(root)
 imageLabelOutputInverted.place(x=0, y=280)
 
-output_file_label_threshold = tk.Label(root, text="Thresholding")
+output_file_label_threshold = tk.Label(root, text="Thresholding (t = 128)")
 output_file_label_threshold.place(x=400, y=30)
 
 imageLabelOutputThreshold = tk.Label(root)
@@ -112,7 +108,7 @@ output_file_label_logarithmic.place(x=400, y=260)
 imageLabelOutputLogarithmic = tk.Label(root)
 imageLabelOutputLogarithmic.place(x=400, y=280)
 
-output_file_label_exponential = tk.Label(root, text="Exponential")
+output_file_label_exponential = tk.Label(root, text="Exponential (γ = 2)")
 output_file_label_exponential.place(x=800, y=30)
 
 imageLabelOutputExponential = tk.Label(root)
