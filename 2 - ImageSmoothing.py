@@ -32,6 +32,7 @@ def place_file(file_path):
 	imageLabelInput.place(x=0, y=50)
 
 	avgFilter(inputImageCV2, newwidth)
+	wgtFilter(inputImageCV2, newwidth)
 	error_label.config(text="No Error")
 
 def avgFilter(inputImageCV2, newwidth):
@@ -49,6 +50,21 @@ def avgFilter(inputImageCV2, newwidth):
 	textLabelOutputAvgFilter.place(x=0, y=260)
 	imageLabelOutputAvgFilter.place(x=0, y=280)
 
+def wgtFilter(inputImageCV2, newwidth):
+	filter = np.array([
+		[1, 2, 1],
+		[2, 4, 2],
+		[1, 2, 1],
+	])/16
+	smoothedImage = cv2.filter2D(inputImageCV2, -1, filter)
+	wgtFilterImage = Image.fromarray(smoothedImage)
+	wgtFilterImage = wgtFilterImage.resize((newwidth, 200))
+	labelWgtFilterImage = ImageTk.PhotoImage(wgtFilterImage)
+	imageLabelOutputWgtFilter.config(image=labelWgtFilterImage)
+	imageLabelOutputWgtFilter.image = labelWgtFilterImage
+	textLabelOutputWgtFilter.place(x=(newwidth+50), y=30)
+	imageLabelOutputWgtFilter.place(x=(newwidth+50), y=50)
+
 root = tk.Tk()
 root.state('zoomed')
 root.title("Image Smoothing/Blurring")
@@ -64,5 +80,8 @@ imageLabelInput = tk.Label(root)
 
 textLabelOutputAvgFilter = tk.Label(root, text="Average Filter")
 imageLabelOutputAvgFilter = tk.Label(root)
+
+textLabelOutputWgtFilter = tk.Label(root, text="Weighted/Gaussian Filter")
+imageLabelOutputWgtFilter = tk.Label(root)
 
 root.mainloop()
