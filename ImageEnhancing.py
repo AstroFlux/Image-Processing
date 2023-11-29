@@ -72,11 +72,8 @@ def exp_transform_file(inputImageCV2, newwidth):
 	imageLabelOutputExponential.image = labelExponentialImage
 
 root = tk.Tk()
-root.geometry("1200x500")
+root.state('zoomed')
 root.title("Image Enhancing")
-# scrollbar = Scrollbar(root)
-# scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-# root.configure(yscrollcommand=scrollbar.set)
 
 open_button = tk.Button(root, text="Open File", command=open_file_dialog)
 open_button.place(x=0, y=0)
