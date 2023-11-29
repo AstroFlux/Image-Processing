@@ -77,7 +77,7 @@ def exp_transform_file(inputImageCV2, newwidth):
 
 root = tk.Tk()
 root.geometry("1200x500")
-root.title("Modify Image")
+root.title("Image Enhancing")
 # scrollbar = Scrollbar(root)
 # scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 # root.configure(yscrollcommand=scrollbar.set)
