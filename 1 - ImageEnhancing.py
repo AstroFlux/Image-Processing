@@ -3,7 +3,6 @@ from tkinter import filedialog, Scrollbar
 import cv2
 from PIL import Image, ImageTk, ImageChops
 import numpy as np
-import os
 
 def open_file_dialog():
 	file_path = filedialog.askopenfilename(title="Select a File", filetypes=[("PNG", "*.png"), ("JPEG", "*.jpg;*.jpeg;*.jpe;*.jfif"), ("All Files", "*.*")])
